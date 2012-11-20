@@ -20,7 +20,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import matsumana.entity.Sample;
-import matsumana.infra.repository.EntityManagerQualifier;
+import matsumana.infra.EntityManagerQualifier;
 
 /**
  * コントローラ
@@ -33,8 +33,6 @@ public class SampleController {
     @Inject
     @EntityManagerQualifier
     private EntityManager em;
-    @Inject
-    private Sample sample;
 
     public String getName() {
         Query query = em.createNamedQuery("findAll", Sample.class);

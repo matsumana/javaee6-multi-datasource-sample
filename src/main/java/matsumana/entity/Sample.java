@@ -76,6 +76,6 @@ public class Sample implements Serializable {
 
     @Override
     public String toString() {
-        return "matsumana.entity.Table01[ id=" + id + " ]";
+        return "matsumana.entity.Sample[ id=" + id + " ]";
     }
 }
