@@ -13,24 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package matsumana.infra.repository;
+package matsumana.controller;
 
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.ElementType.TYPE;
-import java.lang.annotation.Retention;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-import java.lang.annotation.Target;
-import javax.inject.Qualifier;
+import javax.enterprise.inject.Model;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import matsumana.entity.Sample;
+import matsumana.infra.repository.EntityManagerQualifier;
 
 /**
- * EntityManagerファクトリ限定子
+ * コントローラ
  *
  * @author matsumana
  */
-@Qualifier
-@Retention(RUNTIME)
-@Target({METHOD, FIELD, PARAMETER, TYPE})
-public @interface EntityManagerQualifier {
+@Model
+public class SampleController {
+
+    @Inject
+    @EntityManagerQualifier
+    private EntityManager em;
+    @Inject
+    private Sample sample;
+
+    public String getName() {
+        Query query = em.createNamedQuery("findAll", Sample.class);
+        return ((Sample) query.getSingleResult()).getName();
+    }
 }
