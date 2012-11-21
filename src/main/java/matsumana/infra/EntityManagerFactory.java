@@ -37,7 +37,7 @@ public class EntityManagerFactory {
     @Produces
     @EntityManagerQualifier
     public EntityManager getEntityManager() {
-        // システム日付が偶数秒ならfirstEntityManagerに接続する。
+        // システム日付が偶数秒ならem01に接続する。
         DateTime dt = new DateTime();
         int sec = Integer.parseInt(dt.toString("s"));
         if (sec % 2 == 0) {
