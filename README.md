@@ -35,4 +35,6 @@
     $ asadmin create-jdbc-resource --connectionpoolid javaee6multidatasource02Pool jdbc/ds02
 
 ##確認URL  
+画面をリロードするとAとBの何れかが表示されます。  
+jdbc/ds01に接続されるとAが、jdbc/ds02に接続されるとBが表示されます。  
 [http://localhost:8080/javaee6-multi-datasource-sample/faces/sample.xhtml](http://localhost:8080/javaee6-multi-datasource-sample/faces/sample.xhtml)
