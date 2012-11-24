@@ -15,10 +15,12 @@
  */
 package matsumana.controller;
 
+import java.util.Enumeration;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.servlet.http.HttpServletRequest;
 import matsumana.entity.Sample;
 import matsumana.infra.EntityManagerQualifier;
 
@@ -31,11 +33,28 @@ import matsumana.infra.EntityManagerQualifier;
 public class SampleController {
 
     @Inject
+    private HttpServletRequest httpServletRequest;
+    @Inject
     @EntityManagerQualifier
     private EntityManager em;
 
     public String getName() {
+        // HTTPヘッダーをダンプ
+        dumpAllRequestHeader(httpServletRequest);
+
         Query query = em.createNamedQuery("findAll", Sample.class);
         return ((Sample) query.getSingleResult()).getName();
+    }
+
+    private void dumpAllRequestHeader(HttpServletRequest httpServletRequest) {
+        Enumeration<String> headerNames = httpServletRequest.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String headerName = headerNames.nextElement();
+            Enumeration<String> headers = httpServletRequest.getHeaders(headerName);
+            while (headers.hasMoreElements()) {
+                String headerValue = headers.nextElement();
+                System.out.println(headerName + "=[" + headerValue + "]");
+            }
+        }
     }
 }
